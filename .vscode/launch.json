@@ -1,0 +1,13 @@
+{
+    "version": "0.2.0",  // Bu, kullanılan launch.json dosyasının sürümünü belirtir.
+    "configurations": [  // Yapılandırmaların başladığı yer.
+        {
+            "name": "Haskell: Debug Current File",  // Bu yapılandırmanın adı.
+            "type": "haskell",  // Haskell dilini kullanarak debug yapacağınızı belirtir.
+            "request": "launch",  // Debug işleminin bir programı başlatma işlemi olduğunu belirtir.
+            "program": "${hello.hs}",  // Debug işlemi sırasında çalıştırılacak Haskell dosyasının yolu.
+            "args": [],  // Programa verilecek argümanlar (boş bir liste).
+            "cwd": "${workspaceFolder}"  // Çalışma dizininin, Visual Studio Code'un çalıştığı proje klasörü olduğunu belirtir.
+        }
+    ]
+}
