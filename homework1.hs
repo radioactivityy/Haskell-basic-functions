@@ -1,6 +1,9 @@
 type Coordinate = (Int, Int)
 type GameProgress = [Coordinate]
-type Result = String
+type Result = String -- for game board 
+
+pp :: Result -> IO ()
+pp x = putStr (concat (map (++ "\n") (lines x)))
 
 initializeBoard :: (Int, Int) -> Result
 initializeBoard (cols, rows) = unlines (replicate rows (replicate cols ' '))
@@ -28,9 +31,6 @@ addBoundaries board =
       bottomBoundary = topBoundary
       middle = map (\row -> '|' : row ++ "|") rows
   in unlines (topBoundary : middle ++ [bottomBoundary])
-
-pp :: Result -> IO ()
-pp x = putStr (concat (map (++ "\n") (lines x)))
 
 generateTicTacToeBoard :: (Int, Int) -> GameProgress -> IO ()
 generateTicTacToeBoard (cols, rows) progress = pp $ addBoundaries (updateBoard (initializeBoard (cols, rows)) progress)
