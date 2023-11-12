@@ -1,6 +1,4 @@
--- I don't use  pp in the context of the comment
--- I directly used in an interactive Haskell environment where IO actions are executed.
--- Comment to run is: ticktack (8,8) [(1,1),(8,8),(2,2),(3,3),(4,2),(3,2)]
+
 type Coordinate = (Int, Int)
 type GameProgress = [Coordinate]
 type Result = String -- for game board 
