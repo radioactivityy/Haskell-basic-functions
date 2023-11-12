@@ -3,7 +3,7 @@ type GameProgress = [Coordinate]
 type Result = String -- for game board 
 
 pp :: Result -> IO ()
-pp x = putStr (concat (map (++ "\n") (lines x)))
+pp x = putStrLn x
 
 initializeBoard :: (Int, Int) -> Result
 initializeBoard (cols, rows) = unlines (replicate rows (replicate cols ' '))
@@ -12,7 +12,8 @@ updateBoard :: Result -> GameProgress -> Result
 updateBoard board [] = board
 updateBoard board ((x, y):progress) = updateBoard updatedBoard progress
   where
-    updatedBoard = unlines (updateRow (lines board) x y 'x')  -- 'x' is just an example, you should pass the actual player here
+    player = if even (length progress) then 'x' else 'o'
+    updatedBoard = unlines (updateRow (lines board) x y player)
 
     updateRow :: [String] -> Int -> Int -> Char -> [String]
     updateRow rows x y player =
@@ -32,9 +33,5 @@ addBoundaries board =
       middle = map (\row -> '|' : row ++ "|") rows
   in unlines (topBoundary : middle ++ [bottomBoundary])
 
-generateTicTacToeBoard :: (Int, Int) -> GameProgress -> IO ()
-generateTicTacToeBoard (cols, rows) progress = pp $ addBoundaries (updateBoard (initializeBoard (cols, rows)) progress)
-
-parseMoves :: [String] -> GameProgress
-parseMoves [] = []
-parseMoves (x:y:moves) = (read x, read y) : parseMoves moves
+ticktack :: (Int, Int) -> GameProgress -> IO ()
+ticktack (cols, rows) progress = pp $ addBoundaries (updateBoard (initializeBoard (cols, rows)) progress)
