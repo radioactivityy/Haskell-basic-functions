@@ -1,10 +1,10 @@
--- I don't use  pp in the context of the comment
--- I directly used in an interactive Haskell environment where IO actions are executed.
--- Comment to run is: ticktack (8,8) [(1,1),(8,8),(2,2),(3,3),(4,2),(3,2)]
-
+--Comment to run:  pp(ticktack (8,8) [(1,1),(8,8),(2,2),(3,3),(4,2),(3,2)])
 type Coordinate = (Int, Int)
 type GameProgress = [Coordinate]
 type Result = String -- for game board 
+
+pp :: Result -> IO ()
+pp x = putStrLn x
 
 initializeBoard :: (Int, Int) -> Result
 initializeBoard (cols, rows) = unlines (replicate rows (replicate cols ' '))
@@ -37,3 +37,13 @@ addBoundaries board =
 ticktack :: (Int, Int) -> GameProgress -> Result
 ticktack (cols, rows) progress = addBoundaries (updateBoard (initializeBoard (cols, rows)) progress)
 
+ticktackInteractive :: IO ()
+ticktackInteractive = do
+  putStrLn "Enter the number of columns: "
+  cols <- readLn
+  putStrLn "Enter the number of rows: "
+  rows <- readLn
+  putStrLn "Enter the list of coordinates (e.g., [(1,1),(8,8),(2,2),(3,3),(4,2),(3,2)]): "
+  coordinates <- readLn
+  let result = addBoundaries (updateBoard (initializeBoard (cols, rows)) coordinates)
+  pp result
